@@ -4,9 +4,9 @@ function Rysuj_Platek_Kocha(kolor, stopien) {
 	setTimeout(()=>{
 		cn.setAttribute("width", w+"px");
 		var wr=(w-a)/2;
-		Platek_Kocha(wr,h4,wr+a,h4,stopien);
-		Platek_Kocha(w/2,h,wr,h4,stopien);
-		Platek_Kocha(wr+a,h4,w/2,h,stopien);
+		Platek_Kocha(wr,h4,wr+a,h4,stopien,0);
+		Platek_Kocha(w/2,h,wr,h4,stopien,0);
+		Platek_Kocha(wr+a,h4,w/2,h,stopien,0);
 		c.beginPath();
 		c.moveTo(wr,h4);
 		c.lineTo(wr+a,h4);
@@ -16,7 +16,7 @@ function Rysuj_Platek_Kocha(kolor, stopien) {
 		c.fill();
 		ld.classList.remove("db");
 
-		function Platek_Kocha(xa,ya,xe,ye,st){
+		function Platek_Kocha(xa,ya,xe,ye,st,l){
 			if (st == 0) return;
 			var xb,yb,xc,yc,xd,yd,xs,ys,dx,dy;
 			xb=(2*xa+xe)/3;
@@ -34,14 +34,15 @@ function Rysuj_Platek_Kocha(kolor, stopien) {
 			c.lineTo(xs,ys);
 			c.lineTo(xd,yd);
 			c.closePath();
-			c.fillStyle=cls[st-1];
-			c.strokeStyle=cls[st-1];
+			c.fillStyle=cls[l];
+			c.strokeStyle=cls[l];
 			c.stroke();
 			c.fill();
-			Platek_Kocha(xa,ya,xb,yb,st-1);
-			Platek_Kocha(xb,yb,xs,ys,st-1);
-			Platek_Kocha(xs,ys,xd,yd,st-1);
-			Platek_Kocha(xd,yd,xe,ye,st-1);
+			st--;l++;
+			Platek_Kocha(xa,ya,xb,yb,st,l);
+			Platek_Kocha(xb,yb,xs,ys,st,l);
+			Platek_Kocha(xs,ys,xd,yd,st,l);
+			Platek_Kocha(xd,yd,xe,ye,st,l);
 		}
 	})
 }

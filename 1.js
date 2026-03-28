@@ -4,10 +4,10 @@ function Rysuj_Trojkat_Sierpinskiego(kolor, stopien) {
 	setTimeout(()=>{
 		c.fillStyle="#"+kolor;
 		triangle(wr,h,w/2,0,w-wr,h);
-		Trojkat_Sierpinskiego(wr,h,w/2,0,w-wr,h,stopien);
+		Trojkat_Sierpinskiego(wr,h,w/2,0,w-wr,h,stopien,0);
 		ld.classList.remove("db");
 		
-		function Trojkat_Sierpinskiego(ax,ay,bx,by,cx,cy,st){
+		function Trojkat_Sierpinskiego(ax,ay,bx,by,cx,cy,st,l){
 			if(st==0)return;
 			var abx,aby,acx,acy,bcx,bcy;
 			bcx=(bx+cx)/2;
@@ -16,11 +16,11 @@ function Rysuj_Trojkat_Sierpinskiego(kolor, stopien) {
 			acy=(ay+cy)/2;
 			abx=(ax+bx)/2;
 			aby=(ay+by)/2;
-			c.fillStyle=cls[st-1];
+			c.fillStyle=cls[l];
 			triangle(abx,aby,bcx,bcy,acx,acy);
-			Trojkat_Sierpinskiego(ax,ay,abx,aby,acx,acy,st-1);
-			Trojkat_Sierpinskiego(abx,aby,bx,by,bcx,bcy,st-1);
-			Trojkat_Sierpinskiego(acx,acy,bcx,bcy,cx,cy,st-1);
+			Trojkat_Sierpinskiego(ax,ay,abx,aby,acx,acy,st-1,l+1);
+			Trojkat_Sierpinskiego(abx,aby,bx,by,bcx,bcy,st-1,l+1);
+			Trojkat_Sierpinskiego(acx,acy,bcx,bcy,cx,cy,st-1,l+1);
 		}
 	})
 }
