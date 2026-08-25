@@ -14,7 +14,10 @@ for (let i = 0; i < points.length; i++) {
 		isPointering = 1;
 		pointeringIndex = i;
 		downX = e.screenX;
-		downY = e.screenY
+		downY = e.screenY;
+		cn.style.cursor = "grabbing";
+		for (let i = 0; i <= n; i++)
+			pts.children[i].style.cursor = "grabbing";
 	})
 }
 window.onresize = () => {
@@ -38,6 +41,7 @@ window.addEventListener("pointerup", () => {
 		points[pointeringIndex][1] = moveY / coef + 10;
 		translatesX[pointeringIndex] = moveX;
 		translatesY[pointeringIndex] = moveY;
+		cn.style.cursor = "default";
 		Rysuj_Trojkat_Sierpinskiego("f1F1F1", 2);
 	}
 });
@@ -45,6 +49,8 @@ function Rysuj_Trojkat_Sierpinskiego(kolor, stopien) {
 	ld.classList.add("db");
 	setTimeout(()=>{
 		isDrawing = 1;
+		for (let i = 0; i <= n; i++)
+			pts.children[i].style.cursor = "default";
 		cn.setAttribute("width", w+"px");
 		c.lineWidth = 6;
 		var u = [100,200,300,400], il = 0;
@@ -65,7 +71,11 @@ function Rysuj_Trojkat_Sierpinskiego(kolor, stopien) {
 				setTimeout(()=>{linePoint(x, y)}, t * 5)
 			}
 		}
-		setTimeout(() => isDrawing = 0, 2500);
+		setTimeout(() => { 
+			isDrawing = 0;
+			for (let i = 0; i <= n; i++)
+				pts.children[i].style.cursor = "grab";
+		}, 2500);
 		ld.classList.remove("db");
 	})
 
