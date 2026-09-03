@@ -83,13 +83,6 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 		ld.classList.remove("db");
 	})
 
-	/*function point(x, y) {
-		c.beginPath();
-		c.roundRect(x - 10, y - 10, 20, 20, 10);
-		c.fill();
-		c.closePath();
-	}*/
-
 	function linePoint(x, y) {
 		c.beginPath();
 		c.roundRect(x - 3, y - 3, 6, 6, 3);
