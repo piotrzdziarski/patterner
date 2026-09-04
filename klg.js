@@ -26,11 +26,24 @@ function arrow(i) {
 		p.value = n;
 		if (i == 1) {
 			points.push([cn.width/2,cn.height/2]);
-			u.push(n * 100);console.log(u);
-			var pt = pts.children[0].cloneNode(true);
+			u.push(n * 100);
+			var pt = pts.children[0].cloneNode();
 			pt.innerText = n;
 			pts.appendChild(pt);
-			adjustPointPosition(n)
+			adjustPointPosition(n);
+			addDownListenerToPoint(n)
+			
+			var uInputWrapper = diab.children[0].cloneNode(true);
+			uInputWrapper.firstChild.setAttribute("for", "u" + n);
+			uInputWrapper.firstChild.innerText = "Węzeł interpolacji nr " + n + ":";
+			uInputWrapper.children[1].firstChild.id = "u" + n;
+			uInputWrapper.children[1].firstChild.value = n * 100;
+			diab.insertBefore(uInputWrapper,diab.children[n])
+		} else {
+			points.pop();
+			u.pop();
+			pts.removeChild(pts.children[n + 1]);
+			diab.removeChild(diab.children[n + 1])
 		}
 		Rysuj_Krzywa_Lagrange(k.value, n)
 	}
@@ -46,7 +59,8 @@ function adjustPointPosition(i) {
 	pts.children[i].style.transform = `translate(${translatesX[i]}px,${translatesY[i]}px)`
 }
 adjustPointsPositions();
-for (let i = 0; i < points.length; i++) {
+for (let i = 0; i < points.length; i++) addDownListenerToPoint(i);
+function addDownListenerToPoint(i) {
 	pts.children[i].addEventListener("pointerdown", (e) => {
 		if (isDrawing) return;
 		isPointering = 1;
