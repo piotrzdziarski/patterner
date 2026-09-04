@@ -18,37 +18,49 @@ dias.onclick=()=>{
 	Rysuj_Krzywa_Lagrange(k.value,p.value);
 	dia.close()
 };
-k.value="494948";p.value="3";k.onfocus=()=>k.classList.remove("e");
+var opv=3;k.value="494948";p.value=opv;k.onfocus=()=>k.classList.remove("e");
 function arrow(i) {
 	return () => {
 		var n = parseInt(p.value) + i;
 		if (n < 0 || n > M) return;
 		p.value = n;
-		if (i == 1) {
-			points.push([cn.width/2,cn.height/2]);
-			u.push(n * 100);
-			var pt = pts.children[0].cloneNode();
-			pt.innerText = n;
-			pts.appendChild(pt);
-			adjustPointPosition(n);
-			addDownListenerToPoint(n)
-			
-			var uInputWrapper = diab.children[0].cloneNode(true);
-			uInputWrapper.firstChild.setAttribute("for", "u" + n);
-			uInputWrapper.firstChild.innerText = "Węzeł interpolacji nr " + n + ":";
-			uInputWrapper.children[1].firstChild.id = "u" + n;
-			uInputWrapper.children[1].firstChild.value = n * 100;
-			diab.insertBefore(uInputWrapper,diab.children[n])
-		} else {
-			points.pop();
-			u.pop();
-			pts.removeChild(pts.children[n + 1]);
-			diab.removeChild(diab.children[n + 1])
-		}
+		(i == 1) ? appendPointAndU(n) : removePointAndU(n);
 		Rysuj_Krzywa_Lagrange(k.value, n)
 	}
 }
-document.getElementById("arl").onclick=arrow(-1);document.getElementById("arr").onclick=arrow(1);p.onfocus=()=>p.classList.remove("e");document.getElementById("l").onclick=()=>{k.classList.remove("e");p.classList.remove("e");k.value=rcl();if(clbi)rcls();else for(i=0;i<M;i++)cls[i]="#fff";var o=p.value,n;while((n=Math.floor(Math.random()*10))==o);p.value=n};document.getElementById("u").onclick=()=>{var kv=k.value,pv=p.value,b=1;if(kv.length!=6){k.classList.add("e");return};for(i=0;i<6;i++)if(!ih(kv[i])){b=0;break}if(!b){k.classList.add("e")}if(pv!="0"&&pv!="1"&&pv!="2"&&pv!="3"&&pv!="4"&&pv!="5"&&pv!="6"&&pv!="7"&&pv!="8"&&pv!="9"){p.classList.add("e");b=0}if(b)Rysuj_Krzywa_Lagrange(kv,pv)};function rh(){var n=Math.floor(Math.random()*16);if(n==10)return"a";if(n==11)return"b";if(n==12)return"c";if(n==13)return"d";if(n==14)return"e";if(n==15)return"f";return n}function ih(h){return h=="0"||h=="1"||h=="2"||h=="3"||h=="4"||h=="5"||h=="6"||h=="7"||h=="8"||h=="9"||h=="a"||h=="A"||h=="b"||h=="B"||h=="c"||h=="C"||h=="d"||h=="D"||h=="e"||h=="E"||h=="f"||h=="F"}Rysuj_Krzywa_Lagrange(k.value,p.value);
+function appendPointAndU(n) {
+	points.push([cn.width/2,cn.height/2]);
+	u.push(n * 100);
+	var pt = pts.children[0].cloneNode();
+	pt.innerText = n;
+	pts.appendChild(pt);
+	adjustPointPosition(n);
+	addDownListenerToPoint(n)
+	
+	var uInputWrapper = diab.children[0].cloneNode(true);
+	uInputWrapper.firstChild.setAttribute("for", "u" + n);
+	uInputWrapper.firstChild.innerText = "Węzeł interpolacji nr " + n + ":";
+	uInputWrapper.children[1].firstChild.id = "u" + n;
+	uInputWrapper.children[1].firstChild.value = n * 100;
+	diab.insertBefore(uInputWrapper,diab.children[n])
+}
+function removePointAndU(n) {
+	points.pop();
+	u.pop();
+	pts.removeChild(pts.children[n + 1]);
+	diab.removeChild(diab.children[n + 1])
+}
+document.getElementById("arl").onclick=arrow(-1);document.getElementById("arr").onclick=arrow(1);p.onfocus=()=>p.classList.remove("e");document.getElementById("l").onclick=()=>{k.classList.remove("e");p.classList.remove("e");k.value=rcl();if(clbi)rcls();else for(i=0;i<M;i++)cls[i]="#fff";var o=p.value,n;while((n=Math.floor(Math.random()*10))==o);p.value=n};
+document.getElementById("u").onclick=()=>{
+	var kv=k.value,pv=parseInt(p.value),b=1;if(kv.length!=6){k.classList.add("e");return};for(i=0;i<6;i++)if(!ih(kv[i])){b=0;break}if(!b){k.classList.add("e")}if(pv!=0&&pv!=1&&pv!=2&&pv!=3&&pv!=4&&pv!=5&&pv!=6&&pv!=7&&pv!=8&&pv!=9){p.classList.add("e");b=0}if(!b)return;
+	if (pv > opv)
+		for (var i = opv + 1; i <= pv; i++) appendPointAndU(i);
+	else
+		for (var i = opv - 1; i >= pv; i--) removePointAndU(i);
+	opv = pv;
+	Rysuj_Krzywa_Lagrange(kv,pv)
+};
+function rh(){var n=Math.floor(Math.random()*16);if(n==10)return"a";if(n==11)return"b";if(n==12)return"c";if(n==13)return"d";if(n==14)return"e";if(n==15)return"f";return n}function ih(h){return h=="0"||h=="1"||h=="2"||h=="3"||h=="4"||h=="5"||h=="6"||h=="7"||h=="8"||h=="9"||h=="a"||h=="A"||h=="b"||h=="B"||h=="c"||h=="C"||h=="d"||h=="D"||h=="e"||h=="E"||h=="f"||h=="F"}Rysuj_Krzywa_Lagrange(k.value,p.value);
 var isPointering, pointeringIndex, downX, downY, moveX, moveY, isDrawing = 0;
 function adjustPointsPositions() {
 	for (let i = 0; i < points.length; i++) adjustPointPosition(i);
