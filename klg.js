@@ -1,5 +1,5 @@
 var M=9,i,cn=document.getElementById("c"),ld=document.getElementById("ld"),btnss=document.getElementById("btnss"),ss=document.getElementById("ss"),ssh,ssi=0,clb=document.getElementById("clb"),clbi=0,cls=[],cli=document.getElementById("cli"),k=document.getElementById("kolor"),p=document.getElementById("poziom"),ab=document.getElementById("ab"),dia=document.getElementById("dia"),w=cn.width,h=cn.height,c=cn.getContext("2d"),hu,a,wr,hr,u=[0,100,200,300];btnss.onmouseover=()=>{if(!ssi)btnss.firstChild.src="ar_Rounded_white.svg"};btnss.onmouseout=()=>{if(!ssi)btnss.firstChild.src="ar_Rounded.svg"};btnss.onclick=()=>{ssi=!ssi;if(ssi){btnss.firstChild.src="pause.svg";btnss.classList.add("btna");function sss(){ss.style.transition="opacity .2s";ss.style.opacity="1";ss.style.width="0px";void ss.offsetWidth;ss.style.transition=`opacity .2s, width linear 5000ms`;ss.style.width="100%";ssh=setTimeout(()=>{var n=parseInt(p.value)+1;if(n>M)n=0;p.value=n;Rysuj_Krzywa_Lagrange(k.value,p.value);sss()},5000)}sss()}else{btnss.firstChild.src="ar_Rounded_white.svg";btnss.classList.remove("btna");clearTimeout(ssh);ss.style.opacity="0"}};for(i=0;i<M;i++)cls[i]="#fff";function rcl(){return""+rh()+rh()+rh()+rh()+rh()+rh()}function rclh(){return"#"+rcl()}function rcls(){for(i=0;i<M;i++)cls[i]=rclh()};clb.onclick=()=>{clbi=!clbi;if(clbi){clb.classList.add("btna");cli.src="klw.svg";rcls();Rysuj_Krzywa_Lagrange(k.value,p.value)}else{clb.classList.remove("btna");cli.src="kl.svg";for(i=0;i<M;i++)cls[i]="#fff";Rysuj_Krzywa_Lagrange(k.value,p.value)}};ab.onclick=()=>{dia.showModal();u0.focus();for(var i=0;i<=p.value;i++){var el=document.getElementById("u"+i);if(!isNaN(parseFloat(el.value)))el.classList.remove("e")}};diac.onclick=()=>dia.close();
-var points = [[400,200],[1000,300],[500,1000],[200,300]], coef=cn.offsetWidth / cn.width,translatesX=[],translatesY=[];
+var points = [[400,200],[1000,300],[500,1000],[200,300]], coef=cn.offsetWidth / cn.width,translatesX=[],translatesY=[],opv=3;k.value="494948";p.value=opv;
 for (var i = 0; i <= p.value; i++) {
 	var el = document.getElementById("u" + i);
 	el.onfocus = (e) => e.target.classList.remove("e")
@@ -18,12 +18,14 @@ dias.onclick=()=>{
 	Rysuj_Krzywa_Lagrange(k.value,p.value);
 	dia.close()
 };
-var opv=3;k.value="494948";p.value=opv;k.onfocus=()=>k.classList.remove("e");
+k.onfocus=()=>k.classList.remove("e");
 function arrow(i) {
 	return () => {
+		if (isDrawing) return;
 		var n = parseInt(p.value) + i;
 		if (n < 0 || n > M) return;
 		p.value = n;
+		opv = n;
 		(i == 1) ? appendPointAndU(n) : removePointAndU(n);
 		Rysuj_Krzywa_Lagrange(k.value, n)
 	}
@@ -52,6 +54,7 @@ function removePointAndU(n) {
 }
 document.getElementById("arl").onclick=arrow(-1);document.getElementById("arr").onclick=arrow(1);p.onfocus=()=>p.classList.remove("e");document.getElementById("l").onclick=()=>{k.classList.remove("e");p.classList.remove("e");k.value=rcl();if(clbi)rcls();else for(i=0;i<M;i++)cls[i]="#fff";var o=p.value,n;while((n=Math.floor(Math.random()*10))==o);p.value=n};
 document.getElementById("u").onclick=()=>{
+	if (isDrawing) return;
 	var kv=k.value,pv=parseInt(p.value),b=1;if(kv.length!=6){k.classList.add("e");return};for(i=0;i<6;i++)if(!ih(kv[i])){b=0;break}if(!b){k.classList.add("e")}if(pv!=0&&pv!=1&&pv!=2&&pv!=3&&pv!=4&&pv!=5&&pv!=6&&pv!=7&&pv!=8&&pv!=9){p.classList.add("e");b=0}if(!b)return;
 	if (pv > opv)
 		for (var i = opv + 1; i <= pv; i++) appendPointAndU(i);
@@ -121,7 +124,8 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 			pts.children[i].style.cursor = "default";
 		cn.setAttribute("width", w+"px");
 		c.fillStyle = "#" + kolor;
-		for (var t = -1000; t <= 1000; t+=0.1) {
+		c.lineWidth = 5;
+		for (var t = -1000; t <= 1000; t+=1) {
 			var oldpts = points, newpts = [];
 			for (let i = 0; i <= stopien; i++) newpts.push([]);
 			for (var j = 1; j <= stopien; j++) {
@@ -144,10 +148,28 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 		ld.classList.remove("db");
 	})
 }
-
+var bl = 1, px, py;
 function linePoint(x, y) {
-	c.beginPath();
-	c.roundRect(x - 3, y - 3, 6, 6, 3);
-	c.fill();
-	c.closePath();
+	/*if (bl) {
+		c.beginPath();
+		c.moveTo(x - 3, y - 3);
+	}
+	else {
+		c.lineTo(x - 3, y - 3);
+		c.stroke();
+		c.closePath();
+	}
+	bl = !bl;*/
+	if (px) {
+		c.beginPath();
+		c.moveTo(px, py);
+		c.lineTo(x, y);
+		c.stroke();
+		c.closePath();
+	}
+	px = x;
+	py = y
+	// c.roundRect(x - 3, y - 3, 6, 6, 3);
+	// c.fill();
+	// c.closePath();
 }
