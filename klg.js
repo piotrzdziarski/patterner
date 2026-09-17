@@ -29,8 +29,9 @@ function arrow(i) {
 		Rysuj_Krzywa_Lagrange(k.value, n)
 	}
 }
-function appendPointAndU(n) {
-	points.push([cn.width/2,cn.height/2]);
+function appendPointAndU(n,w,h) {
+	if (w) points.push([w,h]);
+	else points.push([cn.width/2,cn.height/2]);
 	u.push(n * 100);
 	var pt = pts.children[0].cloneNode();
 	pt.innerText = n;
@@ -51,7 +52,7 @@ function removePointAndU(n) {
 	pts.removeChild(pts.children[n + 1]);
 	diab.removeChild(diab.children[n + 1])
 }
-document.getElementById("arl").onclick=arrow(-1);document.getElementById("arr").onclick=arrow(1);p.onfocus=()=>p.classList.remove("e");document.getElementById("l").onclick=()=>{k.classList.remove("e");p.classList.remove("e");k.value=rcl();if(clbi)rcls();else for(i=0;i<M;i++)cls[i]="#fff";var o=p.value,n;while((n=Math.floor(Math.random()*10))==o);p.value=n};
+document.getElementById("arl").onclick=arrow(-1);document.getElementById("arr").onclick=arrow(1);p.onfocus=()=>p.classList.remove("e");document.getElementById("l").onclick=()=>{k.classList.remove("e");p.classList.remove("e");k.value=rcl();if(clbi)rcls();else for(i=0;i<M;i++)cls[i]="#fff";cn.setAttribute("width",w+"px");var o=parseInt(p.value),n;while((n=Math.floor(Math.random()*10))==o);p.value=n;for(var i=o-1;i>=0;i--)removePointAndU(i);for(var i=0;i<=n;i++)appendPointAndU(i,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height))}
 document.getElementById("u").onclick=()=>{
 	var kv=k.value,pv=parseInt(p.value),b=1;if(kv.length!=6){k.classList.add("e");return};for(i=0;i<6;i++)if(!ih(kv[i])){b=0;break}if(!b){k.classList.add("e")}if(pv!=0&&pv!=1&&pv!=2&&pv!=3&&pv!=4&&pv!=5&&pv!=6&&pv!=7&&pv!=8&&pv!=9){p.classList.add("e");b=0}if(!b)return;
 	if (pv > opv)
@@ -110,6 +111,8 @@ window.addEventListener("pointerup", (e) => {
 		translatesX[pointeringIndex] = moveX;
 		translatesY[pointeringIndex] = moveY;
 		cn.style.cursor = "default";
+		for (let i = 0; i <= p.value; i++)
+			pts.children[i].style.cursor = "grab";
 		Rysuj_Krzywa_Lagrange(k.value, p.value)
 	}
 });
@@ -120,10 +123,10 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 		for (let i = 0; i < timeouts.length; i++)
 			clearTimeout(timeouts[i]);
 		timeouts = [];
-		for (let i = 0; i <= stopien; i++)
-			pts.children[i].style.cursor = "default";
+		//for (let i = 0; i <= stopien; i++)
+		//	pts.children[i].style.cursor = "default";
 		cn.setAttribute("width", w+"px");
-		c.fillStyle = "#" + kolor;
+		c.strokeStyle = "#" + kolor;
 		c.lineWidth = 5;
 		for (var t = -200; t <= 1000; t+=1) {
 			var oldpts = points, newpts = [];
@@ -138,19 +141,19 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 			ptsLine.push([newpts[0][0],newpts[0][1]]);
 			drawPoint(ptsLine.length);
 			function drawPoint(len) {
-				timeouts.push(setTimeout(()=>{linePoint(len)}, t * 5 + 1000))
+				timeouts.push(setTimeout(()=>{linePoint(len,stopien)}, t * 5 + 1000))
 			}
 		}
 		setTimeout(() => { 
-			ptsLine = [];
-			for (let i = 0; i <= stopien; i++)
-				pts.children[i].style.cursor = "grab";
+			// ptsLine = [];
+			//for (let i = 0; i <= stopien; i++)
+			//	pts.children[i].style.cursor = "grab";
 		}, 6000);
 		ld.classList.remove("db");
 	})
 }
 /*var bl = 1;*/
-function linePoint(len) {
+function linePoint(len,stopien) {
 	/*if (bl) {
 		c.beginPath();
 		c.moveTo(x - 3, y - 3);
