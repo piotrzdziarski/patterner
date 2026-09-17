@@ -52,7 +52,7 @@ function removePointAndU(n) {
 	pts.removeChild(pts.children[n + 1]);
 	diab.removeChild(diab.children[n + 1])
 }
-document.getElementById("arl").onclick=arrow(-1);document.getElementById("arr").onclick=arrow(1);p.onfocus=()=>p.classList.remove("e");document.getElementById("l").onclick=()=>{k.classList.remove("e");p.classList.remove("e");k.value=rcl();if(clbi)rcls();else for(i=0;i<M;i++)cls[i]="#fff";cn.setAttribute("width",w+"px");var o=parseInt(p.value),n;while((n=Math.floor(Math.random()*10))==o);p.value=n;opv=n;for(var i=o-1;i>=-1;i--)removePointAndU(i);for(var i=0;i<=n;i++)appendPointAndU(i,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height))}
+document.getElementById("arl").onclick=arrow(-1);document.getElementById("arr").onclick=arrow(1);p.onfocus=()=>p.classList.remove("e");document.getElementById("l").onclick=()=>{k.classList.remove("e");p.classList.remove("e");k.value=rcl();if(clbi)rcls();else for(i=0;i<M;i++)cls[i]="#fff";cn.setAttribute("width",w+"px");for(let i=0;i<timeouts.length;i++)clearTimeout(timeouts[i]);timeouts=[];var o=parseInt(p.value),n;while((n=Math.floor(Math.random()*10))==o);p.value=n;opv=n;for(var i=o-1;i>=-1;i--)removePointAndU(i);for(var i=0;i<=n;i++)appendPointAndU(i,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height))}
 document.getElementById("u").onclick=()=>{
 	var kv=k.value,pv=parseInt(p.value),b=1;if(kv.length!=6){k.classList.add("e");return};for(i=0;i<6;i++)if(!ih(kv[i])){b=0;break}if(!b){k.classList.add("e")}if(pv!=0&&pv!=1&&pv!=2&&pv!=3&&pv!=4&&pv!=5&&pv!=6&&pv!=7&&pv!=8&&pv!=9){p.classList.add("e");b=0}if(!b)return;
 	if (pv > opv)
