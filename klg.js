@@ -123,12 +123,10 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 		for (let i = 0; i < timeouts.length; i++)
 			clearTimeout(timeouts[i]);
 		timeouts = [];
-		//for (let i = 0; i <= stopien; i++)
-		//	pts.children[i].style.cursor = "default";
 		cn.setAttribute("width", w+"px");
 		c.strokeStyle = "#" + kolor;
 		c.lineWidth = 5;
-		for (var t = -200; t <= 1000; t+=1) {
+		for (var t = -200; t <= 10000; t+=1) {
 			var oldpts = points, newpts = [];
 			for (let i = 0; i <= stopien; i++) newpts.push([]);
 			for (var j = 1; j <= stopien; j++) {
@@ -144,26 +142,10 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 				timeouts.push(setTimeout(()=>{linePoint(len,stopien)}, t * 5 + 1000))
 			}
 		}
-		setTimeout(() => { 
-			// ptsLine = [];
-			//for (let i = 0; i <= stopien; i++)
-			//	pts.children[i].style.cursor = "grab";
-		}, 6000);
 		ld.classList.remove("db");
 	})
 }
-/*var bl = 1;*/
 function linePoint(len,stopien) {
-	/*if (bl) {
-		c.beginPath();
-		c.moveTo(x - 3, y - 3);
-	}
-	else {
-		c.lineTo(x - 3, y - 3);
-		c.stroke();
-		c.closePath();
-	}
-	bl = !bl;*/
 	if (len > 1) {
 		c.beginPath();
 		c.moveTo(ptsLine[len - 2][0], ptsLine[len - 2][1]);
@@ -171,7 +153,4 @@ function linePoint(len,stopien) {
 		c.stroke();
 		c.closePath();
 	}
-	// c.roundRect(x - 3, y - 3, 6, 6, 3);
-	// c.fill();
-	// c.closePath();
 }
