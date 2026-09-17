@@ -21,7 +21,6 @@ dias.onclick=()=>{
 k.onfocus=()=>k.classList.remove("e");
 function arrow(i) {
 	return () => {
-		if (isDrawing) return;
 		var n = parseInt(p.value) + i;
 		if (n < 0 || n > M) return;
 		p.value = n;
@@ -54,7 +53,6 @@ function removePointAndU(n) {
 }
 document.getElementById("arl").onclick=arrow(-1);document.getElementById("arr").onclick=arrow(1);p.onfocus=()=>p.classList.remove("e");document.getElementById("l").onclick=()=>{k.classList.remove("e");p.classList.remove("e");k.value=rcl();if(clbi)rcls();else for(i=0;i<M;i++)cls[i]="#fff";var o=p.value,n;while((n=Math.floor(Math.random()*10))==o);p.value=n};
 document.getElementById("u").onclick=()=>{
-	if (isDrawing) return;
 	var kv=k.value,pv=parseInt(p.value),b=1;if(kv.length!=6){k.classList.add("e");return};for(i=0;i<6;i++)if(!ih(kv[i])){b=0;break}if(!b){k.classList.add("e")}if(pv!=0&&pv!=1&&pv!=2&&pv!=3&&pv!=4&&pv!=5&&pv!=6&&pv!=7&&pv!=8&&pv!=9){p.classList.add("e");b=0}if(!b)return;
 	if (pv > opv)
 		for (var i = opv + 1; i <= pv; i++) appendPointAndU(i);
@@ -64,7 +62,7 @@ document.getElementById("u").onclick=()=>{
 	Rysuj_Krzywa_Lagrange(kv,pv)
 };
 function rh(){var n=Math.floor(Math.random()*16);if(n==10)return"a";if(n==11)return"b";if(n==12)return"c";if(n==13)return"d";if(n==14)return"e";if(n==15)return"f";return n}function ih(h){return h=="0"||h=="1"||h=="2"||h=="3"||h=="4"||h=="5"||h=="6"||h=="7"||h=="8"||h=="9"||h=="a"||h=="A"||h=="b"||h=="B"||h=="c"||h=="C"||h=="d"||h=="D"||h=="e"||h=="E"||h=="f"||h=="F"}Rysuj_Krzywa_Lagrange(k.value,p.value);
-var isPointering, pointeringIndex, downX, downY, moveX, moveY, isDrawing = 0;
+var isPointering, pointeringIndex, downX, downY, moveX, moveY, ptsLine = [], timeouts = [];
 function adjustPointsPositions() {
 	for (let i = 0; i < points.length; i++) adjustPointPosition(i);
 }
@@ -77,7 +75,6 @@ adjustPointsPositions();
 for (let i = 0; i < points.length; i++) addDownListenerToPoint(i);
 function addDownListenerToPoint(i) {
 	pts.children[i].addEventListener("pointerdown", (e) => {
-		if (isDrawing) return;
 		isPointering = 1;
 		pointeringIndex = i;
 		downX = e.screenX;
@@ -119,13 +116,16 @@ window.addEventListener("pointerup", (e) => {
 function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 	ld.classList.add("db");
 	setTimeout(()=>{
-		isDrawing = 1;
+		ptsLine = [];
+		for (let i = 0; i < timeouts.length; i++)
+			clearTimeout(timeouts[i]);
+		timeouts = [];
 		for (let i = 0; i <= stopien; i++)
 			pts.children[i].style.cursor = "default";
 		cn.setAttribute("width", w+"px");
 		c.fillStyle = "#" + kolor;
 		c.lineWidth = 5;
-		for (var t = -1000; t <= 1000; t+=1) {
+		for (var t = -200; t <= 1000; t+=1) {
 			var oldpts = points, newpts = [];
 			for (let i = 0; i <= stopien; i++) newpts.push([]);
 			for (var j = 1; j <= stopien; j++) {
@@ -135,21 +135,22 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 				}
 				oldpts = newpts;
 			}
-			drawPoint(newpts[0][0], newpts[0][1]);
-			function drawPoint(x, y) {
-				setTimeout(()=>{linePoint(x, y)}, t * 5 + 1000)
+			ptsLine.push([newpts[0][0],newpts[0][1]]);
+			drawPoint(ptsLine.length);
+			function drawPoint(len) {
+				timeouts.push(setTimeout(()=>{linePoint(len)}, t * 5 + 1000))
 			}
 		}
 		setTimeout(() => { 
-			isDrawing = 0;
+			ptsLine = [];
 			for (let i = 0; i <= stopien; i++)
 				pts.children[i].style.cursor = "grab";
-		}, 2500);
+		}, 6000);
 		ld.classList.remove("db");
 	})
 }
-var bl = 1, px, py;
-function linePoint(x, y) {
+/*var bl = 1;*/
+function linePoint(len) {
 	/*if (bl) {
 		c.beginPath();
 		c.moveTo(x - 3, y - 3);
@@ -160,15 +161,13 @@ function linePoint(x, y) {
 		c.closePath();
 	}
 	bl = !bl;*/
-	if (px) {
+	if (len > 1) {
 		c.beginPath();
-		c.moveTo(px, py);
-		c.lineTo(x, y);
+		c.moveTo(ptsLine[len - 2][0], ptsLine[len - 2][1]);
+		c.lineTo(ptsLine[len - 1][0], ptsLine[len - 1][1]);
 		c.stroke();
 		c.closePath();
 	}
-	px = x;
-	py = y
 	// c.roundRect(x - 3, y - 3, 6, 6, 3);
 	// c.fill();
 	// c.closePath();
