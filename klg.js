@@ -139,7 +139,7 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 			}
 			var strike = 0;
 			for (let i = 0; i < points.length; i++)
-				if ((Math.abs(points[i][0]-newpts[0][0])<1)&&(Math.abs(points[i][1]-newpts[0][1])<1)) strike = 1;
+				if ((Math.abs(points[i][0]-newpts[0][0])<0.1)&&(Math.abs(points[i][1]-newpts[0][1])<0.1)) strike = 1;
 			ptsLine.push([newpts[0][0],newpts[0][1]]);
 			drawPoint(ptsLine.length,strike);
 			function drawPoint(len,strike) {
