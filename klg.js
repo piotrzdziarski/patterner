@@ -132,7 +132,12 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 		cn.setAttribute("width", w+"px");
 		c.strokeStyle = "#" + kolor;
 		c.lineWidth = parseFloat(ll.value);
-		for (var t = -200; t <= 10000; t+=1) {
+		var uMin = u[0], uMax = u[0];
+		for (i = 0; i <= stopien; i++) {
+			if (u[i] < uMin) uMin = u[i];
+			if (u[i] > uMax) uMax = u[i];			
+		}
+		for (var t = uMin; t <= uMax; t+=1) {
 			var oldpts = points, newpts = [];
 			for (i = 0; i <= stopien; i++) newpts.push([]);
 			for (var j = 1; j <= stopien; j++) {
@@ -148,7 +153,7 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 			ptsLine.push([newpts[0][0],newpts[0][1]]);
 			drawPoint(ptsLine.length,strike);
 			function drawPoint(len,strike) {
-				timeouts.push(setTimeout(()=>{linePoint(len,strike)}, t * 5 + 1000))
+				timeouts.push(setTimeout(()=>{linePoint(len,strike)}, t * 5 + (-uMin*5)))
 			}
 		}
 		ld.classList.remove("db");
