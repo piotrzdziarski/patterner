@@ -151,15 +151,15 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 			for (let i = 0; i < points.length; i++)
 				if ((Math.abs(points[i][0]-newpts[0][0])<1)&&(Math.abs(points[i][1]-newpts[0][1])<1)) strike = 1;
 			ptsLine.push([newpts[0][0],newpts[0][1]]);
-			drawPoint(ptsLine.length,strike);
-			function drawPoint(len,strike) {
-				timeouts.push(setTimeout(()=>{linePoint(len,strike)}, t * 5 + (-uMin*5)))
+			drawLine(ptsLine.length, strike);
+			function drawLine(len, strike) {
+				timeouts.push(setTimeout(()=>{linePoint(len, strike)}, t * 5 + (-uMin*5)))
 			}
 		}
 		ld.classList.remove("db");
 	})
 }
-function linePoint(len,strike) {
+function linePoint(len, strike) {
 	if (len > 1) {
 		c.beginPath();
 		c.moveTo(ptsLine[len - 2][0], ptsLine[len - 2][1]);
