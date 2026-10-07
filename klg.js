@@ -83,8 +83,8 @@ function addDownListenerToPoint(i) {
 	pts.children[i].addEventListener("pointerdown", (e) => {
 		isPointering = 1;
 		pointeringIndex = i;
-		downX = e.screenX;
-		downY = e.screenY;
+		downX = e.clientX;
+		downY = e.clientY;
 		cn.style.cursor = "grabbing";
 		for (let i = 0; i <= p.value; i++)
 			pts.children[i].style.cursor = "grabbing";
@@ -98,9 +98,9 @@ window.addEventListener("pointermove", (e) => {
 	if (isPointering) {
 		var cnRect = cn.getBoundingClientRect();
 		if (e.clientX > cnRect.x && e.clientX < cnRect.x + cnRect.width)
-			moveX = translatesX[pointeringIndex] - downX + e.screenX;
+			moveX = translatesX[pointeringIndex] - downX + e.clientX;
 		if (e.clientY > cnRect.y && e.clientY < cnRect.y + cnRect.height)
-			moveY = translatesY[pointeringIndex] - downY + e.screenY;
+			moveY = translatesY[pointeringIndex] - downY + e.clientY;
 		pts.children[pointeringIndex].style.transform = `translate(${moveX}px,${moveY}px)`
 	}
 });
@@ -108,8 +108,8 @@ window.addEventListener("pointerup", (e) => {
 	if (isPointering) {
 		isPointering = 0;
 		if (moveX === undefined) {
-			moveX = translatesX[pointeringIndex] - downX + e.screenX;
-			moveY = translatesY[pointeringIndex] - downY + e.screenY
+			moveX = translatesX[pointeringIndex] - downX + e.clientX;
+			moveY = translatesY[pointeringIndex] - downY + e.clientY
 		}
 		points[pointeringIndex][0] = moveX / coef + 5 / coef;
 		points[pointeringIndex][1] = moveY / coef + 5 / coef;
