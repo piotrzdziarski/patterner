@@ -14,9 +14,33 @@
 <noscript>Aby zaprezentować wzory potrzebna jest włączona obsługa JavaScript</noscript>
 <nav><img id=logo src=ANSB.svg alt="Logo szkoły"><h1>Responsywna aplikacja webowa do prezentacji oraz tworzenia wzorów i deseni</h1></nav>
 <aside><ul><li><a href=index.html class=l>Krzywa Beziéra</a></li><li><a href=klg.html class=l><img src=Krzywa_Lagrangea.svg alt="Krzywa Lagrange'a">Krzywa Lagrange'a</a></li><li><a href=h.html class=l><img src=Krzywa_Hilberta.svg alt="Miniatura Krzywej Hilberta">Krzywa Hilberta</a></li><li><a href=s.html class=l><img src=Krzywa_Sierpinskiego.svg alt="Miniatura Krzywej Sierpińskiego">Krzywa Sierpińskiego</a></li><li><span class="l ac"><img src=Trojkat_Sierpinskiego.svg alt="Miniatura Trójkąta Sierpińskiego">Trójkąt Sierpińskiego</span></li><li><a href=d.html class=l><img src=Dywan_Sierpinskiego.svg alt="Miniatura Dywanu Sierpińskiego">Dywan Sierpińskiego</a></li><li><a href=p.html class=l><img src=Platek_Kocha.png alt="Miniatura Płatku Kocha">Płatek Kocha</a></li></ul></aside>
-<main><div id=hw class=fsp><h2>Trójkąt Sierpińskiego</h2><div class=fct><button id=btnss class="btn fct" title="Pokaz slajdów"><img src=ar_Rounded.svg></button><button id=clb class=btn title=Wielokolorowy><img id=cli src=kl.svg></button><button id=ab class=btn title=Parametry><div class=fct><div class=abl></div><div class=abr></div></div><div class=fct><div class=abl></div><div class=abr></div></div><div class=fct><div class=abl></div><div class=abr></div></div></button></div></div><div class=fct><div id=cw><div id=ss></div><canvas id=c width=2000px height=1200px></canvas><div id=ld><div></div><div></div><div></div></div></div></div><div id=ml class=fct><button id=arl tabindex=2 class="btnar fct" title="Niższy poziom"><img src=ar.svg></button><label for=poziom>Poziom (0–9): </label><input id=poziom value=2 maxlength=1 tabindex=3><button tabindex=4 id=arr class="btnar fct" title="Wyższy poziom"><img src=ar.svg></button></div><div class=fsp><div><label for=kolor>Kolor: # </label><input id=kolor value=f15f04 maxlength=6 tabindex=1></div><div id=mb><button id=l class=btn tabindex=5>Losuj</button><button id=u class=btn tabindex=6>Ustaw</button></div></div></main>
+<main><div id=hw class=fsp><h2>Trójkąt Sierpińskiego</h2><div class=fct><button id=btnss class="btn fct" title="Pokaz slajdów"><img src=ar_Rounded.svg></button><button id=clb class=btn title=Wielokolorowy><img id=cli src=kl.svg></button><button id=ab class=btn title=Parametry><div class=fct><div class=abl></div><div class=abr></div></div><div class=fct><div class=abl></div><div class=abr></div></div><div class=fct><div class=abl></div><div class=abr></div></div></button></div></div><div class=fct><div id=cw><div id=ss></div><canvas id=c width=2000px height=1200px></canvas><div id=ld><div></div><div></div><div></div></div></div></div><div id=ml class=fct><button id=arl tabindex=2 class="btnar fct" title="Niższy poziom"><img src=ar.svg></button><label for=poziom>Poziom (0–9): </label><input id=poziom value=2 maxlength=1 tabindex=3><button tabindex=4 id=arr class="btnar fct" title="Wyższy poziom"><img src=ar.svg></button></div><div class=fsp><div><label for=kolor>Kolor: # </label><input id=kolor value=f15f04 maxlength=6 tabindex=1></div><div id=mb><button id=l class=btn tabindex=5>Losuj</button><button id=u class=btn tabindex=6>Ustaw</button></div></div><article><p>To jeden z najbardziej rozpoznawalnych fraktali. Poziom zerowy jest trójkątem równobocznym. Żeby otrzymać poziom pierwszy, połączono punkty znajdujące się w połowie długości poszczególnych boków; w ten sposób otrzymano trójkąt, który usunięto. Następnie, powtórzono tę operację dla pozostałych trzech trójkątów; dzięki czemu otrzymano fraktal poziomu drugiego itd.<br>Na następującym rysunku oznaczono wierzchołki, których współrzędne będą potrzebne w algorytmie:</p><div class=fct><img src=Trojkat_Sierpinskiego_Wierzcholki.png style="width:100%;max-width:700px"></div><p>Sposób realizacji zadania skłania do zastosowania mechanizmu rekurencji. Zastosowano pomocniczą funkcję <i>triangle</i> rysującą trójkąt o danych w parametrach współrzędnych. Zadbano o kolorystkę fraktala – jak na rysunku, pomarańczowo-białą. Pominięto wyznaczanie początkowych współrzędnych punktów A, B, i C na środku płótna i wielokolorowość. Trójkąt Sierpińskiego określono następującą specyfikacją problemu algorytmicznego:</p><p style="margin-bottom:0">Dane:</p><ul style="margin-top:5px"><li><i>st</i> – stopień fraktala;</li><li><i>ax</i>, <i>ay</i> – współrzędne punktu początkowego A;</li><li><i>bx</i>, <i>by</i> – współrzędne punktu początkowego B;</li><li><i>cx</i>, <i>cy</i> – współrzędne punktu początkowego C;</li><li><i>c</i> – płótno (ang. <i>canvas</i>).</li></ul><p>Wynik:<br><span style="display:inline-block;margin:5px 0 0 25px">Trójkąt Sierpińskiego poziomu <i>st</i>.</div></p><p style="margin-bottom:0">Narzędzia:</p><ul style="margin-top:5px"><li><i>c.beginPath()</i> – rozpocznij rysowanie nowej ścieżki;</li><li><i>c.moveTo(x, y)</i> – ustalenie punktu początkowego (<i>x</i>, <i>y</i>);</li><li><i>c.lineTo(u, v)</i> – wirtualne kreślenie odcinka od punktu (<i>x</i>, <i>y</i>) do (<i>u</i>, <i>v</i>);</li><li><i>c.fill()</i> – wypełnij ścieżkę kolorem <i>c.fillStyle</i>.</li></ul><p style="margin-bottom:0">Algorytm w języku JavaScript:</p><pre><code>c.fillStyle = “#F15F04”;
+triangle(ax, ay, bx, by, cx, cy);
+Trojkat_Sierpinskiego(ax, ay, bx, by, cx, cy, st);
+function Trojkat_Sierpinskiego(ax, ay, bx, by, cx, cy, st){
+	if (st == 0) return;
+	var abx, aby, acx, acy, bcx, bcy;
+	bcx = (bx + cx) / 2;
+	bcy = (by + cy) / 2;
+	acx = (ax + cx) / 2;
+	acy = (ay + cy) / 2;
+	abx = (ax + bx) / 2;
+	aby = (ay + by) / 2;
+	c.fillStyle = ”#FFF”;
+	triangle(abx, aby, bcx, bcy, acx, acy);
+	Trojkat_Sierpinskiego(ax, ay, abx, aby, acx, acy, st - 1);
+	Trojkat_Sierpinskiego(abx, aby, bx, by, bcx, bcy, st - 1);
+	Trojkat_Sierpinskiego(acx, acy, bcx, bcy, cx, cy, st - 1);
+}
+function triangle(ax, ay, bx, by, cx, cy) {
+	c.beginPath();
+	c.moveTo(ax, ay);
+	c.lineTo(bx, by);
+	c.lineTo(cx, cy);
+	c.fill();
+}
+</code></pre></article></main>
 <dialog id=dia><div id=dian class=fsp><h4>Parametry</h4><button id=diac><div id=dial1></div><div id=dial2></div></button></div><div id=diab><div class=fsp><label for=bok>Wysokość:</label><div><input id=bok maxlength=5 value=100><span>%<sup>*</sup></span></div></div><div class=diar>* Procent wysokości płótna</div><button id=dias class=btn>Zapisz</button></div></dialog>
 <script src=1.js></script>
 </body>
 </html>
-
