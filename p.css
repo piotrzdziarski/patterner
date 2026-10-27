@@ -1,1 +1,1 @@
-article img{width:100%;max-width:700px}@media(min-width:1200px){.image-equation-wrapper{display:flex;justify-content:center;align-items:center}}
+article img{width:100%;max-width:700px}.math{margin-top:20px}@media(min-width:1300px){.image-equation-wrapper{display:flex;justify-content:center;align-items:center;gap:25px}.math{margin-top:0}}
