@@ -9,20 +9,16 @@ function Rysuj_Zbior_Cantora(kolor, stopien) {
 		Dywan_Sierpinskiego(wr+a3,(h-a)/2+a3,a3,stopien,0);
 		ld.classList.remove("db");
 		
-		function Dywan_Sierpinskiego(x,y,d,st,l){
-			if(st==0)return;
-			c.fillStyle=cls[l++];
-			c.fillRect(x,y,d,d);
-			d=d/3;
-			st--;
-			Dywan_Sierpinskiego(x-2*d,y-2*d,d,st,l);
-			Dywan_Sierpinskiego(x+d,y-2*d,d,st,l);
-			Dywan_Sierpinskiego(x+4*d,y-2*d,d,st,l);
-			Dywan_Sierpinskiego(x+4*d,y+d,d,st,l);
-			Dywan_Sierpinskiego(x+4*d,y+4*d,d,st,l);
-			Dywan_Sierpinskiego(x+d,y+4*d,d,st,l);
-			Dywan_Sierpinskiego(x-2*d,y+4*d,d,st,l);
-			Dywan_Sierpinskiego(x-2*d,y+d,d,st,l);
+		function Cantor(x,y,st,fl,l){
+			if (fl == 0) {
+				c.fillRect(x, y, w, h);
+				return;
+			}
+			if (st > 0) {
+				c.fillStyle=cls[l++];
+				c.fillRect();
+				st--;
+			}
 		}
 	})
 }
