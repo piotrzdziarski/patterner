@@ -4,19 +4,18 @@ function Rysuj_Zbior_Cantora(kolor, stopien) {
 	setTimeout(()=>{
 		cn.setAttribute("width", w + "px");
 		c.fillStyle="#"+kolor;
-		c.fillRect(wr,(h-a)/2,a,a);
-		var a3=a/3;
-		Dywan_Sierpinskiego(wr+a3,(h-a)/2+a3,a3,stopien,0);
+		var h = stopien * (odsv + wysv);
+		Cantor(0, (cn.height - h / 2), cn.width, stopien, true, 0);
 		ld.classList.remove("db");
 		
-		function Cantor(x,y,st,fl,l){
-			if (fl == 0) {
-				c.fillRect(x, y, w, h);
-				return;
+		function Cantor(x,y,x2,st,fl,l){
+			if (fl) {
+				c.fillRect(x, y, cn.width * szv, wysv);
+				return
 			}
 			if (st > 0) {
 				c.fillStyle=cls[l++];
-				c.fillRect();
+				c.fillRect(x, y, x );
 				st--;
 			}
 		}
