@@ -4,7 +4,7 @@ function Rysuj_Zbior_Cantora(kolor, stopien) {
 	setTimeout(()=>{
 		cn.setAttribute("width", w + "px");
 		c.fillStyle="#"+kolor;
-		var wf = w * szv / 100, hf = stopien * (odsv + wysv), y = h - ((h - hf) / 2) - wysv / 2;
+		var wf = w * szv / 100, hf = stopien * (odsv + wysv) + wysv, y = h - ((h - hf) / 2) - wysv;
 		Cantor((w - wf) / 2, wf, 0);
 		ld.classList.remove("db");
 		
