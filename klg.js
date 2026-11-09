@@ -1,4 +1,4 @@
-var M=9,i,cn=document.getElementById("c"),ld=document.getElementById("ld"),btnss=document.getElementById("btnss"),ss=document.getElementById("ss"),ssh,ssi=0,clb=document.getElementById("clb"),clbi=0,cls=[],clsi=0,cli=document.getElementById("cli"),k=document.getElementById("kolor"),p=document.getElementById("poziom"),ab=document.getElementById("ab"),dia=document.getElementById("dia"),w=cn.width,h=cn.height,c=cn.getContext("2d"),hu,a,wr,hr,u=[0,100,200,300];btnss.onmouseover=()=>{if(!ssi)btnss.firstChild.src="ar_Rounded_white.svg"};btnss.onmouseout=()=>{if(!ssi)btnss.firstChild.src="ar_Rounded.svg"};btnss.onclick=()=>{ssi=!ssi;if(ssi){btnss.firstChild.src="pause.svg";btnss.classList.add("btna");function sss(){ss.style.transition="opacity .2s";ss.style.opacity="1";ss.style.width="0px";void ss.offsetWidth;ss.style.transition=`opacity .2s, width linear 10000ms`;ss.style.width="100%";ssh=setTimeout(()=>{var n=parseInt(p.value)+1;if(n>M)n=0;p.value=n;if(n==0)for(i=M-1;i>=-1;i--)removePointAndU(i);appendPointAndU(n,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height));Rysuj_Krzywa_Lagrange(k.value,p.value);sss()},10000)}sss()}else{btnss.firstChild.src="ar_Rounded_white.svg";btnss.classList.remove("btna");clearTimeout(ssh);ss.style.opacity="0"}};for(i=0;i<=M;i++)cls[i]="#494948";function rcl(){return""+rh()+rh()+rh()+rh()+rh()+rh()}function rclh(){return"#"+rcl()}function rcls(){for(i=0;i<=M;i++)cls[i]=rclh()};clb.onclick=()=>{clbi=!clbi;if(clbi){clb.classList.add("btna");cli.src="klw.svg";rcls();Rysuj_Krzywa_Lagrange(k.value,p.value)}else{clb.classList.remove("btna");cli.src="kl.svg";for(i=0;i<=M;i++)cls[i]="#"+k.value;Rysuj_Krzywa_Lagrange(k.value,p.value)}};ab.onclick=()=>{dia.showModal();u0.focus();for(i=0;i<=p.value;i++){var el=document.getElementById("u"+i);if(!isNaN(parseFloat(el.value)))el.classList.remove("e")}};diac.onclick=()=>dia.close();
+var M=9,i,cn=document.getElementById("c"),ld=document.getElementById("ld"),clb=document.getElementById("clb"),clbi=0,cls=[],clsi=0,cli=document.getElementById("cli"),k=document.getElementById("kolor"),p=document.getElementById("poziom"),ab=document.getElementById("ab"),dia=document.getElementById("dia"),w=cn.width,h=cn.height,c=cn.getContext("2d"),hu,a,wr,hr,u=[0,100,200,300];window.SlideShowNextLevelHook=(n)=>{if(n==0)for(i=M-1;i>=-1;i--)removePointAndU(i);appendPointAndU(n,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height))};for(i=0;i<=M;i++)cls[i]="#494948";function rcl(){return""+rh()+rh()+rh()+rh()+rh()+rh()}function rclh(){return"#"+rcl()}function rcls(){for(i=0;i<=M;i++)cls[i]=rclh()};clb.onclick=()=>{clbi=!clbi;if(clbi){clb.classList.add("btna");cli.src="klw.svg";rcls();Rysuj_Wzor(k.value,p.value)}else{clb.classList.remove("btna");cli.src="kl.svg";for(i=0;i<=M;i++)cls[i]="#"+k.value;Rysuj_Wzor(k.value,p.value)}};ab.onclick=()=>{dia.showModal();u0.focus();for(i=0;i<=p.value;i++){var el=document.getElementById("u"+i);if(!isNaN(parseFloat(el.value)))el.classList.remove("e")}};diac.onclick=()=>dia.close();
 var points = [[600,900],[500,400],[1500,300],[1300,800]], coef=cn.offsetWidth / cn.width,translatesX=[],translatesY=[],opv=3,ptPrototype=pts.children[0].cloneNode(),diabPrototype=diab.children[1].cloneNode(true);k.value="494948";p.value=opv;u0.value=0;u1.value=100;u2.value=200;u3.value=300;
 ll.onfocus = () => ll.classList.remove("e");
 for (i = 0; i <= p.value; i++) {
@@ -20,7 +20,7 @@ dias.onclick=()=>{
 		}
 	}
 	if (wasErrorDetected) return;
-	Rysuj_Krzywa_Lagrange(k.value,p.value);
+	Rysuj_Wzor(k.value,p.value);
 	dia.close()
 };
 k.onfocus=()=>k.classList.remove("e");
@@ -31,7 +31,7 @@ function arrow(i) {
 		p.value = n;
 		opv = n;
 		(i == 1) ? appendPointAndU(n) : removePointAndU(n);
-		Rysuj_Krzywa_Lagrange(k.value, n)
+		Rysuj_Wzor(k.value, n)
 	}
 }
 function appendPointAndU(n,w,h) {
@@ -65,9 +65,9 @@ document.getElementById("u").onclick=()=>{
 	else
 		for (i = opv - 1; i >= pv; i--) removePointAndU(i);
 	opv = pv;
-	Rysuj_Krzywa_Lagrange(kv,pv)
+	Rysuj_Wzor(kv,pv)
 };
-function rh(){var n=Math.floor(Math.random()*16);if(n==10)return"a";if(n==11)return"b";if(n==12)return"c";if(n==13)return"d";if(n==14)return"e";if(n==15)return"f";return n}function ih(h){return h=="0"||h=="1"||h=="2"||h=="3"||h=="4"||h=="5"||h=="6"||h=="7"||h=="8"||h=="9"||h=="a"||h=="A"||h=="b"||h=="B"||h=="c"||h=="C"||h=="d"||h=="D"||h=="e"||h=="E"||h=="f"||h=="F"}Rysuj_Krzywa_Lagrange(k.value,p.value);
+function rh(){var n=Math.floor(Math.random()*16);if(n==10)return"a";if(n==11)return"b";if(n==12)return"c";if(n==13)return"d";if(n==14)return"e";if(n==15)return"f";return n}function ih(h){return h=="0"||h=="1"||h=="2"||h=="3"||h=="4"||h=="5"||h=="6"||h=="7"||h=="8"||h=="9"||h=="a"||h=="A"||h=="b"||h=="B"||h=="c"||h=="C"||h=="d"||h=="D"||h=="e"||h=="E"||h=="f"||h=="F"}
 var isPointering, pointeringIndex, downX, downY, moveX, moveY, ptsLine = [], timeouts = [];
 function adjustPointsPositions() {
 	for (let i = 0; i < points.length; i++) adjustPointPosition(i);
@@ -118,10 +118,10 @@ window.addEventListener("pointerup", (e) => {
 		cn.style.cursor = "default";
 		for (let i = 0; i <= p.value; i++)
 			pts.children[i].style.cursor = "grab";
-		Rysuj_Krzywa_Lagrange(k.value, p.value)
+		Rysuj_Wzor(k.value, p.value)
 	}
 });
-function Rysuj_Krzywa_Lagrange(kolor, stopien) {
+window.Rysuj_Wzor = (kolor, stopien) => {
 	ld.classList.add("db");
 	setTimeout(()=>{
 		ptsLine = [];
@@ -158,7 +158,7 @@ function Rysuj_Krzywa_Lagrange(kolor, stopien) {
 		}
 		ld.classList.remove("db");
 	})
-}
+};Rysuj_Wzor(k.value,p.value);
 function linePoint(len, strike) {
 	if (len > 1) {
 		c.beginPath();
