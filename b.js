@@ -1,0 +1,186 @@
+var M=9,i,cn=document.getElementById("c"),ld=document.getElementById("ld"),clb=document.getElementById("clb"),clbi=0,cls=[],clsi=0,cli=document.getElementById("cli"),k=document.getElementById("kolor"),p=document.getElementById("poziom"),ab=document.getElementById("ab"),dia=document.getElementById("dia"),w=cn.width,h=cn.height,c=cn.getContext("2d"),hu,a,wr,hr,u=[0,100,200,300];window.SlideShowNextLevelHook=(n)=>{if(n==0)for(i=M-1;i>=-1;i--)removePointAndU(i);appendPointAndU(n,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height))};for(i=0;i<=M;i++)cls[i]="#494948";function rcl(){return""+rh()+rh()+rh()+rh()+rh()+rh()}function rclh(){return"#"+rcl()}function rcls(){for(i=0;i<=M;i++)cls[i]=rclh()};clb.onclick=()=>{clbi=!clbi;if(clbi){clb.classList.add("btna");cli.src="klw.svg";rcls();Rysuj_Wzor(k.value,p.value)}else{clb.classList.remove("btna");cli.src="kl.svg";for(i=0;i<=M;i++)cls[i]="#"+k.value;Rysuj_Wzor(k.value,p.value)}};ab.onclick=()=>{dia.showModal();u0.focus();for(i=0;i<=p.value;i++){var el=document.getElementById("u"+i);if(!isNaN(parseFloat(el.value)))el.classList.remove("e")}};diac.onclick=()=>dia.close();
+var points = [[600,900],[500,400],[1500,300],[1300,800]], coef=cn.offsetWidth / cn.width,translatesX=[],translatesY=[],opv=3,ptPrototype=pts.children[0].cloneNode(),diabPrototype=diab.children[1].cloneNode(true);k.value="494948";p.value=opv;u0.value=0;u1.value=100;u2.value=200;u3.value=300;
+ll.onfocus = () => ll.classList.remove("e");
+for (i = 0; i <= p.value; i++) {
+	var el = document.getElementById("u" + i);
+	el.onfocus = (e) => e.target.classList.remove("e")
+}
+dias.onclick=()=>{
+	var wasErrorDetected = 0;
+	if (isNaN(parseFloat(ll.value))) {
+		ll.classList.add("e");
+		wasErrorDetected = 1
+	}
+	for (i = 0; i <= p.value; i++) {
+		var el = document.getElementById("u" + i)
+		u[i] = parseFloat(el.value);
+		if (isNaN(u[i])) { 
+			el.classList.add("e");
+			wasErrorDetected = 1
+		}
+	}
+	if (wasErrorDetected) return;
+	Rysuj_Wzor(k.value,p.value);
+	dia.close()
+};
+k.onfocus=()=>k.classList.remove("e");
+function arrow(i) {
+	return () => {
+		var n = parseInt(p.value) + i;
+		if (n < 0 || n > M) return;
+		p.value = n;
+		opv = n;
+		(i == 1) ? appendPointAndU(n) : removePointAndU(n);
+		Rysuj_Wzor(k.value, n)
+	}
+}
+function appendPointAndU(n,w,h) {
+	if (w) points.push([w,h]);
+	else points.push([cn.width/2,cn.height/2]);
+	u.push(n * 100);
+	var pt = ptPrototype.cloneNode();
+	pt.innerText = n;
+	pts.appendChild(pt);
+	adjustPointPosition(n);
+	addDownListenerToPoint(n);
+	
+	var uInputWrapper = diabPrototype.cloneNode(true);
+	uInputWrapper.firstChild.setAttribute("for", "u" + n);
+	uInputWrapper.firstChild.innerText = "Węzeł interpolacji nr " + n + ":";
+	uInputWrapper.children[1].firstChild.id = "u" + n;
+	uInputWrapper.children[1].firstChild.value = n * 100;
+	diab.insertBefore(uInputWrapper,diab.children[n + 1])
+}
+function removePointAndU(n) {
+	points.pop();
+	u.pop();
+	pts.removeChild(pts.children[n + 1]);
+	diab.removeChild(diab.children[n + 2])
+}
+document.getElementById("arl").onclick=arrow(-1);document.getElementById("arr").onclick=arrow(1);p.onfocus=()=>p.classList.remove("e");document.getElementById("l").onclick=()=>{k.classList.remove("e");p.classList.remove("e");k.value=rcl();if(clbi)rcls();else for(i=0;i<=M;i++)cls[i]="#"+k.value;cn.setAttribute("width",w+"px");for(let i=0;i<timeouts.length;i++)clearTimeout(timeouts[i]);timeouts=[];var o=parseInt(p.value),n;while((n=Math.floor(Math.random()*10))==o);p.value=n;opv=n;for(i=o-1;i>=-1;i--)removePointAndU(i);for(i=0;i<=n;i++)appendPointAndU(i,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height))}
+document.getElementById("u").onclick=()=>{
+	var kv=k.value,pv=parseInt(p.value),b=1;if(kv.length!=6){k.classList.add("e");return};for(i=0;i<6;i++)if(!ih(kv[i])){b=0;break}if(!b){k.classList.add("e")}if(!clbi)for(i=0;i<=M;i++)cls[i]="#"+k.value;if(pv!=0&&pv!=1&&pv!=2&&pv!=3&&pv!=4&&pv!=5&&pv!=6&&pv!=7&&pv!=8&&pv!=9){p.classList.add("e");b=0}if(!b)return;
+	if (pv > opv)
+		for (i = opv + 1; i <= pv; i++) appendPointAndU(i);
+	else
+		for (i = opv - 1; i >= pv; i--) removePointAndU(i);
+	opv = pv;
+	Rysuj_Wzor(kv,pv)
+};
+function rh(){var n=Math.floor(Math.random()*16);if(n==10)return"a";if(n==11)return"b";if(n==12)return"c";if(n==13)return"d";if(n==14)return"e";if(n==15)return"f";return n}function ih(h){return h=="0"||h=="1"||h=="2"||h=="3"||h=="4"||h=="5"||h=="6"||h=="7"||h=="8"||h=="9"||h=="a"||h=="A"||h=="b"||h=="B"||h=="c"||h=="C"||h=="d"||h=="D"||h=="e"||h=="E"||h=="f"||h=="F"}
+var isPointering, pointeringIndex, downX, downY, moveX, moveY, ptsLine = [], timeouts = [];
+function adjustPointsPositions() {
+	for (let i = 0; i < points.length; i++) adjustPointPosition(i);
+}
+function adjustPointPosition(i) {
+	translatesX[i] = points[i][0]*coef-5;
+	translatesY[i] = points[i][1]*coef-5;
+	pts.children[i].style.transform = `translate(${translatesX[i]}px,${translatesY[i]}px)`
+}
+adjustPointsPositions();
+for (let i = 0; i < points.length; i++) addDownListenerToPoint(i);
+function addDownListenerToPoint(i) {
+	pts.children[i].addEventListener("pointerdown", (e) => {
+		isPointering = 1;
+		pointeringIndex = i;
+		downX = e.clientX;
+		downY = e.clientY;
+		cn.style.cursor = "grabbing";
+		for (let i = 0; i <= p.value; i++)
+			pts.children[i].style.cursor = "grabbing";
+	})
+}
+window.onresize = () => {
+	coef = cn.offsetWidth / cn.width;
+	adjustPointsPositions()
+}
+window.addEventListener("pointermove", (e) => {
+	if (isPointering) {
+		var cnRect = cn.getBoundingClientRect();
+		if (e.clientX > cnRect.x && e.clientX < cnRect.x + cnRect.width)
+			moveX = translatesX[pointeringIndex] - downX + e.clientX;
+		if (e.clientY > cnRect.y && e.clientY < cnRect.y + cnRect.height)
+			moveY = translatesY[pointeringIndex] - downY + e.clientY;
+		pts.children[pointeringIndex].style.transform = `translate(${moveX}px,${moveY}px)`
+	}
+});
+window.addEventListener("pointerup", (e) => {
+	if (isPointering) {
+		isPointering = 0;
+		if (moveX === undefined) {
+			moveX = translatesX[pointeringIndex] - downX + e.clientX;
+			moveY = translatesY[pointeringIndex] - downY + e.clientY
+		}
+		points[pointeringIndex][0] = moveX / coef + 5 / coef;
+		points[pointeringIndex][1] = moveY / coef + 5 / coef;
+		translatesX[pointeringIndex] = moveX;
+		translatesY[pointeringIndex] = moveY;
+		cn.style.cursor = "default";
+		for (let i = 0; i <= p.value; i++)
+			pts.children[i].style.cursor = "grab";
+		Rysuj_Wzor(k.value, p.value)
+	}
+});
+window.Rysuj_Wzor = (kolor, stopien) => {
+	ld.classList.add("db");
+	setTimeout(()=>{
+		ptsLine = [];
+		for (i = 0; i < timeouts.length; i++)
+			clearTimeout(timeouts[i]);
+		timeouts = [];
+		clsi = 0;
+		cn.setAttribute("width", w+"px");
+		c.strokeStyle = "#" + kolor;
+		c.lineWidth = parseFloat(ll.value);
+		var uMin = u[0], uMax = u[0];
+		for (i = 0; i <= stopien; i++) {
+			if (u[i] < uMin) uMin = u[i];
+			if (u[i] > uMax) uMax = u[i];			
+		}
+		for (var t = 0; t <= 1; t+=0.01) {
+			var oldpts = points, newpts = [];
+			for (i = 0; i <= stopien; i++) newpts.push([]);
+			for (var j = 1; j <= stopien; j++) {
+				var lineStarted = 0;
+				if (t > 0.491 && t < 0.509) c.beginPath();
+				for (i = 0; i <= stopien - j; i++) {
+					newpts[i][0] = (1 - t) * oldpts[i][0] + t * oldpts[i+1][0];
+					newpts[i][1] = (1 - t) * oldpts[i][1] + t * oldpts[i+1][1];
+					
+					if (t > 0.491 && t < 0.509)
+						if (lineStarted) {
+							c.lineTo(newpts[i][0], newpts[i][1]);
+						} else {
+							lineStarted = 1;
+							c.moveTo(newpts[i][0], newpts[i][1]);
+						}
+				}
+				if (t > 0.491 && t < 0.509) { 
+					c.stroke();
+					c.closePath();
+				}
+				oldpts = newpts;
+			}
+			if (t > 0.491 && t < 0.509) c.closePath();
+			var strike = 0;
+			for (let i = 0; i < points.length; i++)
+				if ((Math.abs(points[i][0]-newpts[0][0])<1)&&(Math.abs(points[i][1]-newpts[0][1])<1)) strike = 1;
+			ptsLine.push([newpts[0][0],newpts[0][1]]);
+			drawLine(ptsLine.length, strike);
+			function drawLine(len, strike) {
+				timeouts.push(setTimeout(()=>{linePoint(len, strike)}, t * 1000 + (-uMin*5)))
+			}
+		}
+		ld.classList.remove("db");
+	})
+};Rysuj_Wzor(k.value,p.value);
+function linePoint(len, strike) {
+	if (len > 1) {
+		c.beginPath();
+		c.moveTo(ptsLine[len - 2][0], ptsLine[len - 2][1]);
+		c.lineTo(ptsLine[len - 1][0], ptsLine[len - 1][1]);
+		c.stroke();
+		c.closePath();
+	}
+	if (strike) c.strokeStyle = cls[clsi++]
+}
