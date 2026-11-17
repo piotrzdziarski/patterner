@@ -1,10 +1,6 @@
-var M=9,i,cn=document.getElementById("c"),ld=document.getElementById("ld"),clb=document.getElementById("clb"),clbi=0,cls=[],clsi=0,cli=document.getElementById("cli"),k=document.getElementById("kolor"),p=document.getElementById("poziom"),ab=document.getElementById("ab"),dia=document.getElementById("dia"),w=cn.width,h=cn.height,c=cn.getContext("2d"),hu,a,wr,hr,u=[0,100,200,300];window.SlideShowNextLevelHook=(n)=>{if(n==0)for(i=M-1;i>=-1;i--)removePointAndU(i);appendPointAndU(n,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height))};for(i=0;i<=M;i++)cls[i]="#494948";function rcl(){return""+rh()+rh()+rh()+rh()+rh()+rh()}function rclh(){return"#"+rcl()}function rcls(){for(i=0;i<=M;i++)cls[i]=rclh()};clb.onclick=()=>{clbi=!clbi;if(clbi){clb.classList.add("btna");cli.src="klw.svg";rcls();Rysuj_Wzor(k.value,p.value)}else{clb.classList.remove("btna");cli.src="kl.svg";for(i=0;i<=M;i++)cls[i]="#"+k.value;Rysuj_Wzor(k.value,p.value)}};ab.onclick=()=>{dia.showModal();u0.focus();for(i=0;i<=p.value;i++){var el=document.getElementById("u"+i);if(!isNaN(parseFloat(el.value)))el.classList.remove("e")}};diac.onclick=()=>dia.close();
-var points = [[600,900],[500,400],[1500,300],[1300,800]], coef=cn.offsetWidth / cn.width,translatesX=[],translatesY=[],opv=3,ptPrototype=pts.children[0].cloneNode(),diabPrototype=diab.children[1].cloneNode(true);k.value="494948";p.value=opv;u0.value=0;u1.value=100;u2.value=200;u3.value=300;
+var M=9,i,cn=document.getElementById("c"),ld=document.getElementById("ld"),clb=document.getElementById("clb"),clbi=0,cls=[],clsi=0,cli=document.getElementById("cli"),k=document.getElementById("kolor"),p=document.getElementById("poziom"),ab=document.getElementById("ab"),dia=document.getElementById("dia"),w=cn.width,h=cn.height,c=cn.getContext("2d");window.SlideShowNextLevelHook=(n)=>{if(n==0)for(i=M-1;i>=-1;i--)removePointAndU(i);appendPointAndU(n,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height))};for(i=0;i<=M;i++)cls[i]="#494948";function rcl(){return""+rh()+rh()+rh()+rh()+rh()+rh()}function rclh(){return"#"+rcl()}function rcls(){for(i=0;i<=M;i++)cls[i]=rclh()};clb.onclick=()=>{clbi=!clbi;if(clbi){clb.classList.add("btna");cli.src="klw.svg";rcls();Rysuj_Wzor(k.value,p.value)}else{clb.classList.remove("btna");cli.src="kl.svg";for(i=0;i<=M;i++)cls[i]="#"+k.value;Rysuj_Wzor(k.value,p.value)}};ab.onclick=()=>{dia.showModal();u0.focus();for(i=0;i<=p.value;i++){var el=document.getElementById("u"+i);if(!isNaN(parseFloat(el.value)))el.classList.remove("e")}};diac.onclick=()=>dia.close();
+var points = [[600,900],[500,400],[1500,300],[1300,800]], coef=cn.offsetWidth / cn.width,translatesX=[],translatesY=[],opv=3,ptPrototype=pts.children[0].cloneNode(),diabPrototype=diab.children[1].cloneNode(true);k.value="494948";p.value=opv;
 ll.onfocus = () => ll.classList.remove("e");
-for (i = 0; i <= p.value; i++) {
-	var el = document.getElementById("u" + i);
-	el.onfocus = (e) => e.target.classList.remove("e")
-}
 dias.onclick=()=>{
 	var wasErrorDetected = 0;
 	if (isNaN(parseFloat(ll.value))) {
@@ -132,11 +128,6 @@ window.Rysuj_Wzor = (kolor, stopien) => {
 		cn.setAttribute("width", w+"px");
 		c.strokeStyle = "#" + kolor;
 		c.lineWidth = parseFloat(ll.value);
-		var uMin = u[0], uMax = u[0];
-		for (i = 0; i <= stopien; i++) {
-			if (u[i] < uMin) uMin = u[i];
-			if (u[i] > uMax) uMax = u[i];			
-		}
 		for (var t = 0; t <= 1.001; t+=0.01) {
 			var oldpts = points, newpts = [];
 			for (i = 0; i <= stopien; i++) newpts.push([]);
@@ -168,7 +159,7 @@ window.Rysuj_Wzor = (kolor, stopien) => {
 			ptsLine.push([newpts[0][0],newpts[0][1]]);
 			drawLine(ptsLine.length, strike);
 			function drawLine(len, strike) {
-				timeouts.push(setTimeout(()=>{linePoint(len, strike)}, t * 1000 + (-uMin*5)))
+				timeouts.push(setTimeout(()=>{linePoint(len, strike)}, t * 1000))
 			}
 		}
 		ld.classList.remove("db");
