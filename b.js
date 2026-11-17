@@ -1,4 +1,4 @@
-var M=9,i,cn=document.getElementById("c"),ld=document.getElementById("ld"),clb=document.getElementById("clb"),clbi=0,cls=[],clsi=0,cli=document.getElementById("cli"),k=document.getElementById("kolor"),p=document.getElementById("poziom"),ab=document.getElementById("ab"),dia=document.getElementById("dia"),w=cn.width,h=cn.height,c=cn.getContext("2d");window.SlideShowNextLevelHook=(n)=>{if(n==0)for(i=M-1;i>=-1;i--)removePointAndU(i);appendPointAndU(n,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height))};for(i=0;i<=M;i++)cls[i]="#494948";function rcl(){return""+rh()+rh()+rh()+rh()+rh()+rh()}function rclh(){return"#"+rcl()}function rcls(){for(i=0;i<=M;i++)cls[i]=rclh()};clb.onclick=()=>{clbi=!clbi;if(clbi){clb.classList.add("btna");cli.src="klw.svg";rcls();Rysuj_Wzor(k.value,p.value)}else{clb.classList.remove("btna");cli.src="kl.svg";for(i=0;i<=M;i++)cls[i]="#"+k.value;Rysuj_Wzor(k.value,p.value)}};ab.onclick=()=>{dia.showModal();u0.focus();for(i=0;i<=p.value;i++){var el=document.getElementById("u"+i);if(!isNaN(parseFloat(el.value)))el.classList.remove("e")}};diac.onclick=()=>dia.close();
+var M=9,i,cn=document.getElementById("c"),ld=document.getElementById("ld"),clb=document.getElementById("clb"),clbi=0,cls=[],clsi=0,cli=document.getElementById("cli"),k=document.getElementById("kolor"),p=document.getElementById("poziom"),ab=document.getElementById("ab"),dia=document.getElementById("dia"),w=cn.width,h=cn.height,c=cn.getContext("2d");window.SlideShowNextLevelHook=(n)=>{if(n==0)for(i=M-1;i>=-1;i--)removePoint(i);appendPoint(n,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height))};for(i=0;i<=M;i++)cls[i]="#494948";function rcl(){return""+rh()+rh()+rh()+rh()+rh()+rh()}function rclh(){return"#"+rcl()}function rcls(){for(i=0;i<=M;i++)cls[i]=rclh()};clb.onclick=()=>{clbi=!clbi;if(clbi){clb.classList.add("btna");cli.src="klw.svg";rcls();Rysuj_Wzor(k.value,p.value)}else{clb.classList.remove("btna");cli.src="kl.svg";for(i=0;i<=M;i++)cls[i]="#"+k.value;Rysuj_Wzor(k.value,p.value)}};ab.onclick=()=>{dia.showModal();ll.focus()};diac.onclick=()=>dia.close();
 var points = [[600,900],[500,400],[1500,300],[1300,800]], coef=cn.offsetWidth / cn.width,translatesX=[],translatesY=[],opv=3,ptPrototype=pts.children[0].cloneNode(),diabPrototype=diab.children[1].cloneNode(true);k.value="494948";p.value=opv;
 ll.onfocus = () => ll.classList.remove("e");
 dias.onclick=()=>{
@@ -6,14 +6,6 @@ dias.onclick=()=>{
 	if (isNaN(parseFloat(ll.value))) {
 		ll.classList.add("e");
 		wasErrorDetected = 1
-	}
-	for (i = 0; i <= p.value; i++) {
-		var el = document.getElementById("u" + i)
-		u[i] = parseFloat(el.value);
-		if (isNaN(u[i])) { 
-			el.classList.add("e");
-			wasErrorDetected = 1
-		}
 	}
 	if (wasErrorDetected) return;
 	Rysuj_Wzor(k.value,p.value);
@@ -26,40 +18,30 @@ function arrow(i) {
 		if (n < 0 || n > M) return;
 		p.value = n;
 		opv = n;
-		(i == 1) ? appendPointAndU(n) : removePointAndU(n);
+		(i == 1) ? appendPoint(n) : removePoint(n);
 		Rysuj_Wzor(k.value, n)
 	}
 }
-function appendPointAndU(n,w,h) {
+function appendPoint(n,w,h) {
 	if (w) points.push([w,h]);
 	else points.push([cn.width/2,cn.height/2]);
-	u.push(n * 100);
 	var pt = ptPrototype.cloneNode();
 	pt.innerText = n;
 	pts.appendChild(pt);
 	adjustPointPosition(n);
-	addDownListenerToPoint(n);
-	
-	var uInputWrapper = diabPrototype.cloneNode(true);
-	uInputWrapper.firstChild.setAttribute("for", "u" + n);
-	uInputWrapper.firstChild.innerText = "Węzeł interpolacji nr " + n + ":";
-	uInputWrapper.children[1].firstChild.id = "u" + n;
-	uInputWrapper.children[1].firstChild.value = n * 100;
-	diab.insertBefore(uInputWrapper,diab.children[n + 1])
+	addDownListenerToPoint(n)
 }
-function removePointAndU(n) {
+function removePoint(n) {
 	points.pop();
-	u.pop();
-	pts.removeChild(pts.children[n + 1]);
-	diab.removeChild(diab.children[n + 2])
+	pts.removeChild(pts.children[n + 1])
 }
-document.getElementById("arl").onclick=arrow(-1);document.getElementById("arr").onclick=arrow(1);p.onfocus=()=>p.classList.remove("e");document.getElementById("l").onclick=()=>{k.classList.remove("e");p.classList.remove("e");k.value=rcl();if(clbi)rcls();else for(i=0;i<=M;i++)cls[i]="#"+k.value;cn.setAttribute("width",w+"px");for(let i=0;i<timeouts.length;i++)clearTimeout(timeouts[i]);timeouts=[];var o=parseInt(p.value),n;while((n=Math.floor(Math.random()*10))==o);p.value=n;opv=n;for(i=o-1;i>=-1;i--)removePointAndU(i);for(i=0;i<=n;i++)appendPointAndU(i,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height))}
+document.getElementById("arl").onclick=arrow(-1);document.getElementById("arr").onclick=arrow(1);p.onfocus=()=>p.classList.remove("e");document.getElementById("l").onclick=()=>{k.classList.remove("e");p.classList.remove("e");k.value=rcl();if(clbi)rcls();else for(i=0;i<=M;i++)cls[i]="#"+k.value;cn.setAttribute("width",w+"px");for(let i=0;i<timeouts.length;i++)clearTimeout(timeouts[i]);timeouts=[];var o=parseInt(p.value),n;while((n=Math.floor(Math.random()*10))==o);p.value=n;opv=n;for(i=o-1;i>=-1;i--)removePoint(i);for(i=0;i<=n;i++)appendPoint(i,Math.floor(Math.random()*cn.width),Math.floor(Math.random()*cn.height))}
 document.getElementById("u").onclick=()=>{
 	var kv=k.value,pv=parseInt(p.value),b=1;if(kv.length!=6){k.classList.add("e");return};for(i=0;i<6;i++)if(!ih(kv[i])){b=0;break}if(!b){k.classList.add("e")}if(!clbi)for(i=0;i<=M;i++)cls[i]="#"+k.value;if(pv!=0&&pv!=1&&pv!=2&&pv!=3&&pv!=4&&pv!=5&&pv!=6&&pv!=7&&pv!=8&&pv!=9){p.classList.add("e");b=0}if(!b)return;
 	if (pv > opv)
-		for (i = opv + 1; i <= pv; i++) appendPointAndU(i);
+		for (i = opv + 1; i <= pv; i++) appendPoint(i);
 	else
-		for (i = opv - 1; i >= pv; i--) removePointAndU(i);
+		for (i = opv - 1; i >= pv; i--) removePoint(i);
 	opv = pv;
 	Rysuj_Wzor(kv,pv)
 };
@@ -126,8 +108,8 @@ window.Rysuj_Wzor = (kolor, stopien) => {
 		timeouts = [];
 		clsi = 0;
 		cn.setAttribute("width", w+"px");
+		c.lineWidth = 5;
 		c.strokeStyle = "#" + kolor;
-		c.lineWidth = parseFloat(ll.value);
 		for (var t = 0; t <= 1.001; t+=0.01) {
 			var oldpts = points, newpts = [];
 			for (i = 0; i <= stopien; i++) newpts.push([]);
@@ -153,11 +135,8 @@ window.Rysuj_Wzor = (kolor, stopien) => {
 				oldpts = newpts;
 			}
 			if (t > 0.491 && t < 0.509) c.closePath();
-			var strike = 0;
-			for (let i = 0; i < points.length; i++)
-				if ((Math.abs(points[i][0]-newpts[0][0])<1)&&(Math.abs(points[i][1]-newpts[0][1])<1)) strike = 1;
 			ptsLine.push([newpts[0][0],newpts[0][1]]);
-			drawLine(ptsLine.length, strike);
+			drawLine(ptsLine.length);
 			function drawLine(len, strike) {
 				timeouts.push(setTimeout(()=>{linePoint(len, strike)}, t * 1000))
 			}
@@ -165,13 +144,13 @@ window.Rysuj_Wzor = (kolor, stopien) => {
 		ld.classList.remove("db");
 	})
 };Rysuj_Wzor(k.value,p.value);
-function linePoint(len, strike) {
+function linePoint(len) {
 	if (len > 1) {
+		c.lineWidth = parseFloat(ll.value);
 		c.beginPath();
 		c.moveTo(ptsLine[len - 2][0], ptsLine[len - 2][1]);
 		c.lineTo(ptsLine[len - 1][0], ptsLine[len - 1][1]);
 		c.stroke();
 		c.closePath();
 	}
-	if (strike) c.strokeStyle = cls[clsi++]
 }
