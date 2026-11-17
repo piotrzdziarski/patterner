@@ -137,7 +137,7 @@ window.Rysuj_Wzor = (kolor, stopien) => {
 			if (u[i] < uMin) uMin = u[i];
 			if (u[i] > uMax) uMax = u[i];			
 		}
-		for (var t = 0; t <= 1; t+=0.01) {
+		for (var t = 0; t <= 1.001; t+=0.01) {
 			var oldpts = points, newpts = [];
 			for (i = 0; i <= stopien; i++) newpts.push([]);
 			for (var j = 1; j <= stopien; j++) {
