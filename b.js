@@ -108,8 +108,19 @@ window.Rysuj_Wzor = (kolor, stopien) => {
 		timeouts = [];
 		clsi = 0;
 		cn.setAttribute("width", w+"px");
-		c.lineWidth = 5;
-		c.strokeStyle = "#" + kolor;
+		c.lineWidth = 4;
+		if (clbi)
+			c.strokeStyle = cls[0];
+		else
+			c.strokeStyle = "#494948";
+		if (show.checked) {
+			c.beginPath();
+			c.moveTo(points[0][0], points[0][1]);
+			for (i = 1; i < points.length; i++)
+				c.lineTo(points[i][0], points[i][1])
+			c.stroke();
+			c.closePath();
+		}
 		for (var t = 0; t <= 1.001; t+=0.01) {
 			var oldpts = points, newpts = [];
 			for (i = 0; i <= stopien; i++) newpts.push([]);
@@ -120,17 +131,20 @@ window.Rysuj_Wzor = (kolor, stopien) => {
 					newpts[i][0] = (1 - t) * oldpts[i][0] + t * oldpts[i+1][0];
 					newpts[i][1] = (1 - t) * oldpts[i][1] + t * oldpts[i+1][1];
 					
-					if (t > 0.491 && t < 0.509)
+					if (show.checked && t > 0.491 && t < 0.509)
 						if (lineStarted) {
 							c.lineTo(newpts[i][0], newpts[i][1]);
+							if (i == stopien - j) {
+								c.stroke();
+								c.closePath();
+							}
 						} else {
-							lineStarted = 1;
+							lineStarted = 1;console.log(cls[j]);
+							if (clbi)
+								c.strokeStyle = cls[j];
+							c.beginPath();
 							c.moveTo(newpts[i][0], newpts[i][1]);
 						}
-				}
-				if (t > 0.491 && t < 0.509) { 
-					c.stroke();
-					c.closePath();
 				}
 				oldpts = newpts;
 			}
@@ -138,15 +152,16 @@ window.Rysuj_Wzor = (kolor, stopien) => {
 			ptsLine.push([newpts[0][0],newpts[0][1]]);
 			drawLine(ptsLine.length);
 			function drawLine(len, strike) {
-				timeouts.push(setTimeout(()=>{linePoint(len, strike)}, t * 1000))
+				timeouts.push(setTimeout(()=>{linePoint(len, kolor)}, t * 1000))
 			}
 		}
 		ld.classList.remove("db");
 	})
 };Rysuj_Wzor(k.value,p.value);
-function linePoint(len) {
+function linePoint(len, kolor) {
 	if (len > 1) {
 		c.lineWidth = parseFloat(ll.value);
+		c.strokeStyle = "#" + kolor;
 		c.beginPath();
 		c.moveTo(ptsLine[len - 2][0], ptsLine[len - 2][1]);
 		c.lineTo(ptsLine[len - 1][0], ptsLine[len - 1][1]);
