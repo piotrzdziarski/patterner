@@ -159,11 +159,11 @@ window.Rysuj_Wzor = (kolor, stopien) => {
 	})
 };Rysuj_Wzor(k.value,p.value);
 function linePoint(len, kolor) {
-	if (len > 1) {
+	if (len > 2) {
 		c.lineWidth = parseFloat(ll.value);
 		c.strokeStyle = "#" + kolor;
 		c.beginPath();
-		c.moveTo(ptsLine[len - 2][0], ptsLine[len - 2][1]);
+		c.moveTo(ptsLine[len - 3][0], ptsLine[len - 3][1]);
 		c.lineTo(ptsLine[len - 1][0], ptsLine[len - 1][1]);
 		c.stroke();
 		c.closePath();
